@@ -3,6 +3,7 @@ import { css } from "@emotion/css";
 
 type Props = {
   text: string;
+  onClick: () => void;
 };
 
 const buttonStyle = css`
@@ -18,6 +19,10 @@ const buttonStyle = css`
 `;
 
 export const Button: React.VFC<Props> = (props) => {
-  const { text } = props;
-  return <button className={buttonStyle}>{text}</button>;
+  const { text, onClick } = props;
+  return (
+    <button className={buttonStyle} onClick={onClick}>
+      {text}
+    </button>
+  );
 };

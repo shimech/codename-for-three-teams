@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/css";
 import { Button } from "@/components/atoms/Button";
 import { PanelTable } from "@/components/molecules/PanelTable";
@@ -55,15 +55,24 @@ const numTeams: number[] = [10, 9, 8];
 const numAssassins: number = 1;
 
 export const Top: React.VFC = () => {
+  const [board, setBoard] = useState(
+    createBoard(numRows, numColumns, numTeams, numAssassins)
+  );
+
   return (
     <div className={topStyle}>
-      <Button text={"New Game"}></Button>
+      <Button
+        text={"New Game"}
+        onClick={() =>
+          setBoard(createBoard(numRows, numColumns, numTeams, numAssassins))
+        }
+      ></Button>
       <PanelTable
         width={120}
         height={80}
         numRows={numRows}
         numColumns={numColumns}
-        board={createBoard(numRows, numColumns, numTeams, numAssassins)}
+        board={board}
       ></PanelTable>
     </div>
   );
