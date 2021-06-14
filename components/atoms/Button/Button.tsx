@@ -16,6 +16,10 @@ const buttonStyle = css`
   font-size: 20px;
   background-color: #70c1b3;
   color: #000000;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const Button: React.VFC<Props> = (props) => {
