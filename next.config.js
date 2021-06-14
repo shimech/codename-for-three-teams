@@ -1,8 +1,5 @@
-const { PHASE_PRODUCTION_BUILD } = require("next/constants");
+require("dotenv").config();
 
-module.exports = (phase, { defaultConfig }) => {
-  if (phase === PHASE_PRODUCTION_BUILD) {
-    return { assetPrefix: "codename-for-three-teams" };
-  }
-  return {};
+module.exports = {
+  assetPrefix: process.env.GITHUB_PAGES ? "/codename-for-three-teams" : "",
 };
