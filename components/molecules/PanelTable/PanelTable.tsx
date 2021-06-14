@@ -1,31 +1,23 @@
 import * as React from "react";
 import { css } from "@emotion/css";
 import { Panel } from "@/components/atoms/Panel";
+import { ROWS, COLUMNS } from "@/constants/board";
+import { Card } from "@/models/card";
 
 type Props = {
   width: number;
   height: number;
-  numRows: number;
-  numColumns: number;
-  board: number[];
+  board: Card[];
 };
 
-const colors: string[] = [
-  "#50514F",
-  "#EEEEEE",
-  "#F25F5C",
-  "#247BA0",
-  "#FFE066",
-];
-
 export const PanelTable: React.VFC<Props> = (props) => {
-  const { width, height, numRows, numColumns, board } = props;
+  const { width, height, board } = props;
 
   const panels = board
     .flat()
-    .map((id, index) => (
+    .map((card, index) => (
       <Panel
-        color={colors[id]}
+        color={card.color}
         width={width}
         height={height}
         key={index}
@@ -42,8 +34,8 @@ export const PanelTable: React.VFC<Props> = (props) => {
 
   const panelTableStyle = css`
     display: grid;
-    grid-template-rows: ${defineSize(numRows, height)};
-    grid-template-columns: ${defineSize(numColumns, width)};
+    grid-template-rows: ${defineSize(ROWS, height)};
+    grid-template-columns: ${defineSize(COLUMNS, width)};
     grid-gap: 8px;
     margin: 0 auto;
     grid-row: 2;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/css";
 import { Button } from "@/components/atoms/Button";
 import { PanelTable } from "@/components/molecules/PanelTable";
+import { createBoard } from "@/utils/utils";
 
 const width: number = 1280;
 const marginTop: number = 40;
@@ -17,63 +18,16 @@ const topStyle = css`
   gap: 24px 0;
 `;
 
-const createBoard = (
-  numRows: number,
-  numColumns: number,
-  numTeams: number[],
-  numAssassins: number
-) => {
-  const sum = (array: number[]) => {
-    return array.reduce((prev, current) => prev + current);
-  };
-  const numCitizens: number =
-    numRows * numColumns - sum(numTeams) - numAssassins;
-  const board: number[] = [];
-  numTeams.forEach((num, index) => {
-    for (let i = 0; i < num; i++) {
-      board.push(index + 2);
-    }
-  });
-  for (let i = 0; i < numAssassins; i++) {
-    board.push(0);
-  }
-  for (let i = 0; i < numCitizens; i++) {
-    board.push(1);
-  }
-  for (let i = board.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const tmp = board[i];
-    board[i] = board[j];
-    board[j] = tmp;
-  }
-  return board;
-};
-
-const numRows: number = 6;
-const numColumns: number = 6;
-const numTeams: number[] = [10, 9, 8];
-const numAssassins: number = 1;
-
 export const Top: React.VFC = () => {
-  const [board, setBoard] = useState(
-    createBoard(numRows, numColumns, numTeams, numAssassins)
-  );
+  const [board, setBoard] = useState(createBoard());
 
   return (
     <div className={topStyle}>
       <Button
         text={"New Game"}
-        onClick={() =>
-          setBoard(createBoard(numRows, numColumns, numTeams, numAssassins))
-        }
+        onClick={() => setBoard(createBoard())}
       ></Button>
-      <PanelTable
-        width={120}
-        height={80}
-        numRows={numRows}
-        numColumns={numColumns}
-        board={board}
-      ></PanelTable>
+      <PanelTable width={120} height={80} board={board}></PanelTable>
     </div>
   );
 };
